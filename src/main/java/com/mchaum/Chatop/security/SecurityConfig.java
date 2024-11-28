@@ -47,7 +47,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth ->
 				auth.requestMatchers("/auth/register", "/auth/login", "/error").permitAll()
 				.requestMatchers("/test").permitAll()
-				.requestMatchers("/auth/me", "/messages" ,"/rentals/*").authenticated()
+				.requestMatchers("/auth/me", "/messages" ,"/rentals/*", "/user/*").authenticated()
 					.anyRequest().authenticated())
 			        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			        .and()

@@ -3,6 +3,9 @@ package com.mchaum.Chatop.controller;
 import com.mchaum.Chatop.model.Rental;
 import com.mchaum.Chatop.repository.RentalRepository;
 import com.mchaum.Chatop.service.RentalService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
@@ -21,7 +24,7 @@ public class RentalController {
 
     @PostMapping
     public ResponseEntity<String> createRental(@RequestHeader("Authorization") String token,
-                                               @RequestBody Rental rental) {
+                                               @Valid @RequestBody Rental rental) {
         token = token.startsWith("Bearer ") ? token.substring(7) : token;
 
         Rental createdRental = rentalService.createRental(token, rental.getName(), rental.getSurface(), 
@@ -47,7 +50,7 @@ public class RentalController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateRental(@PathVariable Long id, @RequestBody Rental rentalDetails) {
+    public ResponseEntity<String> updateRental(@PathVariable Long id, @RequestBody Rental rentalDetails) {
         Optional<Rental> rentalOptional = rentalRepository.findById(id);
 
         if (rentalOptional.isEmpty()) {
@@ -55,18 +58,30 @@ public class RentalController {
         }
 
         Rental rental = rentalOptional.get();
-        
-        // Mise à jour des informations de l'annonce //
-        rental.setName(rentalDetails.getName());
-        rental.setSurface(rentalDetails.getSurface());
-        rental.setPrice(rentalDetails.getPrice());
-        rental.setPicture(rentalDetails.getPicture());
-        rental.setDescription(rentalDetails.getDescription());
+
+        // Mise à jour uniquement des champs non nuls //
+        if (rentalDetails.getName() != null) {
+            rental.setName(rentalDetails.getName());
+        }
+        if (rentalDetails.getSurface() != null) {
+            rental.setSurface(rentalDetails.getSurface());
+        }
+        if (rentalDetails.getPrice() != null) {
+            rental.setPrice(rentalDetails.getPrice());
+        }
+        if (rentalDetails.getPicture() != null) {
+            rental.setPicture(rentalDetails.getPicture());
+        }
+        if (rentalDetails.getDescription() != null) {
+            rental.setDescription(rentalDetails.getDescription());
+        }
+
         rental.setUpdatedAt(java.time.LocalDateTime.now());
 
-        rentalRepository.save(rental); 
+        rentalRepository.save(rental);
 
-        return ResponseEntity.ok().body("Rental updated!");
+        return ResponseEntity.ok("Rental updated!");
     }
+
 
 }

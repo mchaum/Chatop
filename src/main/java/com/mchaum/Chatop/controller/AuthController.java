@@ -23,6 +23,7 @@ import com.mchaum.Chatop.model.User;
 import com.mchaum.Chatop.repository.UserRepository;
 import com.mchaum.Chatop.security.JwtUtils;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +39,7 @@ public class AuthController {
 	private final AuthenticationManager authenticationManager;
 	
 	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody User user) {
+	public ResponseEntity<?> register(@Valid @RequestBody User user) {
 		 if (userRepository.findByEmail(user.getEmail()).isPresent()) {
 	            return ResponseEntity.badRequest().body("This email is already in use");
 	        }

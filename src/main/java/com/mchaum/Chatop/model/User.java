@@ -10,7 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import lombok.Data;
@@ -25,10 +26,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     @Column(unique = true, nullable = false)
     private String email;
     
+    @NotBlank(message = "Name is required")
     private String name;
+    
+    @NotBlank(message = "Password is required")
     private String password;
 
     @Column(name = "created_at")

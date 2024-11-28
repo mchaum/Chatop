@@ -1,6 +1,9 @@
 package com.mchaum.Chatop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,10 +20,20 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotNull(message = "Surface is required")
     private BigDecimal surface;
+
+    @NotNull(message = "Price is required")
+    @Min(value = 0, message = "Price must be greater than or equal to 0")
     private BigDecimal price;
+
+    @NotBlank(message = "Picture URL is required")
     private String picture;
+
+    @NotBlank(message = "Description is required")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
