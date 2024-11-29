@@ -1,4 +1,4 @@
-package com.mchaum.Chatop.model;
+package DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

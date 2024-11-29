@@ -54,7 +54,7 @@ public class AuthController {
 		try {
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 					if (authentication.isAuthenticated()) {
-						Map<String, Object> authData = new HashMap<>(); // DTO possible aussi //
+						Map<String, Object> authData = new HashMap<>(); 
 						authData.put("token", jwtUtils.generateToken(user.getEmail()));
 						authData.put("type", "Bearer");
 						return ResponseEntity.ok(authData);

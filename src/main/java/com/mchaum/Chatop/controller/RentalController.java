@@ -4,6 +4,7 @@ import com.mchaum.Chatop.model.Rental;
 import com.mchaum.Chatop.repository.RentalRepository;
 import com.mchaum.Chatop.service.RentalService;
 
+import DTO.RentalUpdateDTO;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class RentalController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateRental(@PathVariable Long id, @RequestBody Rental rentalDetails) {
+    public ResponseEntity<String> updateRental(@PathVariable Long id, @Valid @RequestBody RentalUpdateDTO rentalDetails) {
         Optional<Rental> rentalOptional = rentalRepository.findById(id);
 
         if (rentalOptional.isEmpty()) {
@@ -77,11 +78,11 @@ public class RentalController {
         }
 
         rental.setUpdatedAt(java.time.LocalDateTime.now());
-
         rentalRepository.save(rental);
 
         return ResponseEntity.ok("Rental updated!");
     }
+
 
 
 }

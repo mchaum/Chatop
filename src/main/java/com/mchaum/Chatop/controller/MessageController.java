@@ -1,9 +1,12 @@
 package com.mchaum.Chatop.controller;
 
-import com.mchaum.Chatop.model.MessageRequestDTO;
 import com.mchaum.Chatop.model.Messages;
 import com.mchaum.Chatop.repository.MessageRepository;
+import com.mchaum.Chatop.service.MessageService;
 import com.mchaum.Chatop.service.UserService;
+
+import DTO.MessageRequestDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,21 +16,19 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
-
+    
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageService messageService;
 
     @Autowired
     private UserService userService;
 
     @PostMapping
     public String sendMessage(@Valid @RequestBody MessageRequestDTO messageDto) {
-        // Log the incoming message
         if (messageDto.getMessage() == null || messageDto.getMessage().isBlank()) {
             throw new IllegalArgumentException("Message cannot be null or empty");
         }
 
-        // Récupération de l'utilisateur connecté
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer userId = null;
 
@@ -36,14 +37,7 @@ public class MessageController {
             userId = userService.findUserIdByEmail(userDetails.getUsername()).intValue();
         }
 
-        // Création de l'entité Messages à partir du DTO
-        Messages message = new Messages();
-        message.setRentalId(messageDto.getRentalId());
-        message.setMessage(messageDto.getMessage());  // Ensure this is not null or empty
-        message.setUserId(userId);
-
-        // Enregistrement dans la base de données
-        messageRepository.save(message);
+        messageService.createAndSaveMessage(messageDto, userId);
 
         return "Message sent successfully";
     }
