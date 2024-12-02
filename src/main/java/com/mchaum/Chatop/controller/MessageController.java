@@ -1,7 +1,5 @@
 package com.mchaum.Chatop.controller;
 
-import com.mchaum.Chatop.model.Messages;
-import com.mchaum.Chatop.repository.MessageRepository;
 import com.mchaum.Chatop.service.MessageService;
 import com.mchaum.Chatop.service.UserService;
 

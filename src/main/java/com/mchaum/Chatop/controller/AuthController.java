@@ -68,7 +68,7 @@ public class AuthController {
 	
 	@GetMapping("/me")
 	public ResponseEntity<?> getAuthenticatedUser(Authentication authentication) {
-	    String email = authentication.getName(); // Obtenu depuis Security //
+	    String email = authentication.getName();
 	    Optional<User> userOptional = userRepository.findByEmail(email);
 	    
 	    if (userOptional.isEmpty()) {

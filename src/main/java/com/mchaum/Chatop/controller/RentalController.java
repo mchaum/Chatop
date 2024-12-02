@@ -28,9 +28,6 @@ public class RentalController {
                                                @Valid @RequestBody Rental rental) {
         token = token.startsWith("Bearer ") ? token.substring(7) : token;
 
-        Rental createdRental = rentalService.createRental(token, rental.getName(), rental.getSurface(), 
-                                                          rental.getPrice(), rental.getPicture(), 
-                                                          rental.getDescription());
         return ResponseEntity.ok("Rental created!");
     }
     

@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService {
         );
     }
     
- // Méthode pour obtenir l'ID utilisateur //
     public Long findUserIdByEmail(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("User not found with email: " + email));
@@ -39,7 +38,6 @@ public class UserService implements UserDetailsService {
     }
     
     
-    // Méthode pour obtenir un utilisateur via son ID (Rentals) //
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> 
             new UsernameNotFoundException("User not found with id: " + id)

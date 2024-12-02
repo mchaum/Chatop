@@ -21,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Component
 @Slf4j
 public class JwtUtils {
-	// Récupération de la clé secrète & expiration time dans le app.properties //
 	
 	@Value("${app.secret-key}")
 	private String secretKey; 
@@ -68,7 +67,7 @@ public class JwtUtils {
 	}
 
 	private Claims extractAllClaims(String token) {
-		// Récupère tous les claims pour les convertir //
+		// On récupère tous les claims pour les convertir //
 		return Jwts.parser()
 				.setSigningKey(getSignKey())
 				.parseClaimsJws(token)
