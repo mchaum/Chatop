@@ -52,7 +52,7 @@ public class SecurityConfig {
 					    "/swagger-ui.html", 
 					    "/swagger-ui/index.html"
 					).permitAll()
-				.requestMatchers("/auth/me", "/messages" ,"/rentals/*", "/user/*").authenticated()
+				.requestMatchers("/auth/me", "/messages" ,"/rentals/*", "/user/*", "/uploads/*").authenticated()
 					.anyRequest().authenticated())
 			        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			        .and()

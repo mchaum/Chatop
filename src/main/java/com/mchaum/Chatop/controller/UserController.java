@@ -2,6 +2,9 @@ package com.mchaum.Chatop.controller;
 
 import com.mchaum.Chatop.model.User;
 import com.mchaum.Chatop.repository.UserRepository;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/user")
 public class UserController {
 

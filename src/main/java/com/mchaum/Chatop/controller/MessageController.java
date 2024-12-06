@@ -1,9 +1,10 @@
 package com.mchaum.Chatop.controller;
 
+import com.mchaum.Chatop.DTO.MessageRequestDTO;
 import com.mchaum.Chatop.service.MessageService;
 import com.mchaum.Chatop.service.UserService;
 
-import DTO.MessageRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/messages")
 public class MessageController {
     

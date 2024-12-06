@@ -1,8 +1,9 @@
 package com.mchaum.Chatop.service;
 
+import com.mchaum.Chatop.DTO.MessageRequestDTO;
 import com.mchaum.Chatop.model.Messages;
 import com.mchaum.Chatop.repository.MessageRepository;
-import DTO.MessageRequestDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

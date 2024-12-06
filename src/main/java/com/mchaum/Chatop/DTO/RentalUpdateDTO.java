@@ -1,4 +1,4 @@
-package DTO;
+package com.mchaum.Chatop.DTO;
 
 import jakarta.validation.constraints.Min;
 import lombok.Data;

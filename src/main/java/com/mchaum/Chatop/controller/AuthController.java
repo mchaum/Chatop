@@ -23,6 +23,7 @@ import com.mchaum.Chatop.model.User;
 import com.mchaum.Chatop.repository.UserRepository;
 import com.mchaum.Chatop.security.JwtUtils;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +67,7 @@ public class AuthController {
 		}
 	}
 	
+	@SecurityRequirement(name = "Bearer Authentication")
 	@GetMapping("/me")
 	public ResponseEntity<?> getAuthenticatedUser(Authentication authentication) {
 	    String email = authentication.getName();
